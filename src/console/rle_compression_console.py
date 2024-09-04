@@ -1,4 +1,7 @@
-from rle_compression import rle_encode, rle_decode, RLECompressionTypeError, RLECompressionValueError
+import sys
+sys.path.append( "src" )
+
+from functionalities.rle_compression import rle_encode, rle_decode, RLECompressionTypeError, RLECompressionValueError
 
 def main():
     print("Welcome to the Text Compressor and Decompressor!")

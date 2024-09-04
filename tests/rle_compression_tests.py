@@ -1,8 +1,19 @@
-import unittest # Importamos la libreria unittest que nos brinda las funcionalidades para realizar las pruebas.
-from rle_compression import rle_encode, rle_decode, RLECompressionTypeError, RLECompressionValueError
+import unittest
+import sys
+
+sys.path.append( "src" )
+
+from src.functionalities.rle_compression import rle_encode, rle_decode, RLECompressionTypeError, RLECompressionValueError
+
+
 class TestRLECompression(unittest.TestCase):
 
-    # Casos Normales para comprimir.
+    """
+    We use the AssertEqual function to call the functionality where an input data by the user is 
+    compressed and decompressed and using a comma we place the expected result, returning a boolean value.
+    """
+
+    # Normal cases for compression.
     def test_rle_encode_normal1(self):
         self.assertEqual(rle_encode("AAAABBBCCC"), "A4B3C3")
 
@@ -12,7 +23,7 @@ class TestRLECompression(unittest.TestCase):
     def test_rle_encode_normal3(self):
         self.assertEqual(rle_encode("aaBBcc"), "a2B2c2")
 
-    # Casos Normales para descomprimir.
+   # Normal cases for decompress.
     def test_rle_decode_normal1(self):
         self.assertEqual(rle_decode("A4B3C3"), "AAAABBBCCC")
 
@@ -22,7 +33,7 @@ class TestRLECompression(unittest.TestCase):
     def test_rle_decode_normal3(self):    
         self.assertEqual(rle_decode("a2B2c2"), "aaBBcc")
 
-    # Casos Extraordinarios para comprimir.
+    # Extraordinary cases to compress.
     def test_rle_encode_extraordinary1(self):
         self.assertEqual(rle_encode("sasa"), "sasa")
 
@@ -32,7 +43,7 @@ class TestRLECompression(unittest.TestCase):
     def test_rle_encode_extraordinary3(self):
         self.assertEqual(rle_encode("aaaaaaaaaaaaaaaaaaaaaaaa"), "a24")
 
-    # Casos Extraordinarios para descomprimir.
+    # Extraordinary cases to decompress.
     def test_rle_decode_extraordinary1(self):
         self.assertEqual(rle_decode("sasa"), "sasa")
     
@@ -42,40 +53,39 @@ class TestRLECompression(unittest.TestCase):
     def test_rle_decode_extraordinary3(self):    
         self.assertEqual(rle_decode("a24"), "aaaaaaaaaaaaaaaaaaaaaaaa")
 
-    # Casos de Error para comprimir.
+    # Error cases for compressing.
     def test_rle_encode_error_1(self):
         with self.assertRaises(RLECompressionTypeError):
-            rle_encode(None) # Intenta comprimir un None
+            rle_encode(None) # Try to compress a None
 
     def test_rle_encode_error_2(self):
         with self.assertRaises(RLECompressionTypeError):
-            rle_encode(12345) # Intenta comprimir un entero
+            rle_encode(12345) # Try to compress an integer
 
     def test_rle_encode_error_3(self):
         with self.assertRaises(RLECompressionTypeError):
-            rle_encode(["a", "b", "c"])  # Intenta comprimir una lista
+            rle_encode(["a", "b", "c"]) # Try to compress a list
 
     def test_rle_encode_error_4(self):
         with self.assertRaises(RLECompressionTypeError):
-            rle_encode({"a": 1})  # Intenta comprimir un diccionario
+            rle_encode({"a": 1}) # Try to compress a dictionary
 
-    # Casos de Error para descomprimir.
+    # Error cases for decompressing.
     def test_rle_decode_error_1(self):
         with self.assertRaises(RLECompressionValueError):
-            rle_decode("a3b-2")  # Intenta descomprimir una cadena de formato incorrecto (número negativo)
-
+            rle_decode("a3b-2") # Try to decompress a malformed string (negative number)
     def test_rle_decode_error_2(self):
         with self.assertRaises(RLECompressionValueError):
-            rle_decode("a10b0")  # Intenta descomprimir con formato con recuento cero (no debería ser permitido)
+            rle_decode("a10b0") # Try to decompress with zero count format (should not be allowed)
 
     def test_rle_decode_error_3(self):
         with self.assertRaises(RLECompressionTypeError):
-            rle_decode(None) # Intenta descomprimir un None
+            rle_decode(None) # Try to decompress a None 
 
     def test_rle_decode_error_4(self):
         with self.assertRaises(RLECompressionTypeError):
-            rle_decode(12345) # Intenta descomprimir un entero
+            rle_decode(12345) # Try to decompress an integer
 
-# Este fragmento de código permite ejecutar la prueba individualmente.
+# This code snippet allows the test to be run individually.
 if __name__ == "__main__":
     unittest.main()
