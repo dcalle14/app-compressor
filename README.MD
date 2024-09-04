@@ -1,15 +1,52 @@
-# TEXT COMPRESSOR PROJECT
+Project developed by Santiago Cordoba Fuentes and Gustavo Andres Mendez Barrera
 
-Our project will be carried out using good programming practices and clean code.
+# Text compressor and decompressor.
 
-In this project we will use the Python programming language with a first delivery starting with the use of unit tests to verify and analyze the good behavior of my functionalities that will be carried out with the run length encoding (RLE) algorithm and a type of console to execute them.
+Data compression is the reduction of the volume of data that can be processed to represent a certain information using a smaller amount of space. In this project, the use of RLE compression or Run-length encoding is a very simple form of data compression in which data sequences with the same consecutive value are stored as a single value plus its count.
 
-# CONTENT
+## Prerequisites
 
-- The module called "rle_compression.py" implements the functionality of compressing and decompressing a text.
+- To run the program it is important to have Visual Studio Code and the Python programming language extension installed.
+- To run the program from the console you must run the following command: `src\console\rle_compression_console.py`
 
-- For "rle_compression_tests.py" unit tests are carried out that will verify all possible error fields that can be generated when executing them and thus be treated.
+## Project Architecture
 
-- In the "rle_compression_console.py" module you can execute the code with a user interface which will be used to compress or decompress the text you want.
+In this project the library used for the validation of unit tests is *unittest* which provides us with a set of tools to build and execute tests.
 
-And that's all for the first installment of work, thanks for reading.
+## Files description 
+
+This project is structured as follows:
+
+`
+Text Compressor/
+├── .vscode
+│   └── settings.json
+│
+│
+├── src
+│   ├── console
+│   │    └── rle_compression_console.py  # Lógica para la interfaz de línea de comandos
+│   │    
+│   └── functionalities
+│       ├── _init_.py
+│       └── rle_compression.py      # Lógica de las funcionalidades para compresión y descompresión texto 
+│
+│
+├── tests
+│   ├── _init_.py
+│   └── rle_compression_tests.py    # Pruebas para la lógica de compresión y descompresión de texto
+│ 
+│
+├── .gitignore    # Rutas excluidas del control de versión
+├── LICENSE       # Licencia del proyecto
+└── README.md     # Documentación del proyecto
+`
+
+## Program use
+
+In this section I will explain the way in which you can run both the unit tests and the program console for greater experience.
+
+1. To run the unit tests, from the src folder, use the command: `tests\rle_compression_tests.py` In order to run from the root folder, you must indicate the search path where the modules are located, including the following lines at the beginning of the test module.
+2. To run the program from the console you must run the following command: `src\console\rle_compression_console.py`
+
+This is a second part of the release for this project after doing some refactoring and applying clean code principles.
