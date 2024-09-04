@@ -18,28 +18,28 @@ In this project the library used for the validation of unit tests is *unittest* 
 This project is structured as follows:
 
 ```
-Text Compressor/
+text-compressor/
 ├── .vscode
 │   └── settings.json
 │
 │
 ├── src
 │   ├── console
-│   │    └── rle_compression_console.py  # Lógica para la interfaz de línea de comandos
+│   │    └── rle_compression_console.py # Logic for the command line interface
 │   │    
 │   └── functionalities
 │       ├── _init_.py
-│       └── rle_compression.py      # Lógica de las funcionalidades para compresión y descompresión texto 
+│       └── rle_compression.py          # Logic of the functionalities for text compression and decompression 
 │
 │
 ├── tests
 │   ├── _init_.py
-│   └── rle_compression_tests.py    # Pruebas para la lógica de compresión y descompresión de texto
+│   └── rle_compression_tests.py        # Tests for text compression/decompression logic
 │ 
 │
-├── .gitignore    # Rutas excluidas del control de versión
-├── LICENSE       # Licencia del proyecto
-└── README.md     # Documentación del proyecto
+├── .gitignore    # Paths excluded from version control
+├── LICENSE       # Project license
+└── README.md     # Project documentation
 ```
 
 ## Program use
