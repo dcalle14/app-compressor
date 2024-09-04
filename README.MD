@@ -17,7 +17,7 @@ In this project the library used for the validation of unit tests is *unittest* 
 
 This project is structured as follows:
 
-`
+```
 Text Compressor/
 ├── .vscode
 │   └── settings.json
@@ -40,7 +40,7 @@ Text Compressor/
 ├── .gitignore    # Rutas excluidas del control de versión
 ├── LICENSE       # Licencia del proyecto
 └── README.md     # Documentación del proyecto
-`
+```
 
 ## Program use
 
