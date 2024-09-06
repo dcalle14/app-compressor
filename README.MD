@@ -42,17 +42,22 @@ text-compressor/
 └── README.md     # Project documentation
 ```
 
-## Installation / program use
+## Installation and Usage
 
-To clone this repository from your terminal, which can be PowerShell or CommandPrompt, follow the steps below carefully.
-1. Navigate to the folder where you want to clone the project, using the cd command.
-2. Copy the following command to clone the repository from your machine: 
+Open your terminal (PowerShell, Command Prompt, or any terminal you prefer).
+1. Navigate to the folder where you want to clone the project, using the `cd` command.
+2. Run the following command to clone the repository: 
     > $> git clone https://github.com/santiagocordobaf/text-compressor.git
-3. Navigate to the project folder using: 
+3. Navigate to the project folder:
     > $> cd text-compressor
+
+### Running Unit Test
+
 4. To run the unit tests performed, use the following command:
     > $> python -m unittest discover -s tests -p "*.py"
-This will discover and run all the test cases within the tests folder.
+- This will discover and run all the test cases within the tests folder.
+
+### Running the Program
 5. To run the console of the program in which you can compress and decompress texts, use the following command:
     > $> python src/console/rle_compression_console.py
 
