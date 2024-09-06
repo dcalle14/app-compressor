@@ -11,7 +11,7 @@ Data compression is the reduction of the volume of data that can be processed to
 
 ## Project Architecture
 
-In this project the library used for the validation of unit tests is *unittest* which provides us with a set of tools to build and execute tests.
+In this project the library used for the validation of unit tests is **unittest** which provides us with a set of tools to build and execute tests.
 
 ## Files description 
 
