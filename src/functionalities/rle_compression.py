@@ -1,29 +1,29 @@
 class RLECompressionError(Exception):
-    """Clase base para excepciones en el módulo de compresión RLE."""
+    """Base class for exceptions in the RLE compression module"""
     pass
 
 class RLECompressionNoneError(RLECompressionError):
-    """Se lanza cuando la entrada es None."""
+    """Thrown when input is None"""
     pass
 
 class RLECompressionIntegerError(RLECompressionError):
-    """Se lanza cuando la entrada es un número entero."""
+    """Thrown when the input is an integer"""
     pass
 
 class RLECompressionListError(RLECompressionError):
-    """Se lanza cuando la entrada es una lista."""
+    """Thrown when the input is a list"""
     pass
 
 class RLECompressionDictError(RLECompressionError):
-    """Se lanza cuando la entrada es un diccionario."""
+    """Thrown when the input is a dictionary"""
     pass
 
 class RLECompressionNegativeValueError(RLECompressionError):
-    """Se lanza cuando la entrada contiene un número negativo."""
+    """Thrown when the input contains a negative number"""
     pass
 
 class RLECompressionZeroCountError(RLECompressionError):
-    """Se lanza cuando la entrada contiene un conteo de cero."""
+    """Thrown when the input contains a zero count"""
     pass
 
 def rle_encode(data: str) -> str:
@@ -41,15 +41,16 @@ def rle_encode(data: str) -> str:
     str: The string compressed using RLE.
     """
     if data is None:
-        raise RLECompressionNoneError("No se puede comprimir un valor None.")
-    if isinstance(data, int):
-        raise RLECompressionIntegerError("No se puede comprimir un número entero.")
-    if isinstance(data, list):
-        raise RLECompressionListError("No se puede comprimir una lista.")
-    if isinstance(data, dict):
-        raise RLECompressionDictError("No se puede comprimir un diccionario.")
+        raise RLECompressionNoneError("You cannot compress a None value.")
     
-    # Lógica de compresión RLE
+    if isinstance(data, int):
+        raise RLECompressionIntegerError("You cannot compress an integer.")
+    
+    if isinstance(data, list):
+        raise RLECompressionListError("You cannot compress a list.")
+    
+    if isinstance(data, dict):
+        raise RLECompressionDictError("You cannot compress a dictionary.")
     compressed = []
     i = 0
     while i < len(data):
@@ -77,13 +78,13 @@ def rle_decode(data: str) -> str:
     """
 
     if data is None:
-            raise RLECompressionNoneError("No se puede descomprimir un valor None.")
+            raise RLECompressionNoneError("Cannot decompress a value of None.")
     
     if isinstance(data, int):
-            raise RLECompressionIntegerError("No se puede descomprimir un número entero.")
+            raise RLECompressionIntegerError("Cannot decompress an integer.")
     
     if "-" in data:
-         raise RLECompressionNegativeValueError("Cannot decode negative numbers.")
+         raise RLECompressionNegativeValueError("Cannot decompress negative numbers")
         
     decompressed = []
     i = 0
@@ -97,9 +98,9 @@ def rle_decode(data: str) -> str:
                     i += 1
                 count = int(count_str)
                 if count < 0:
-                    raise RLECompressionNegativeValueError("El valor de repetición no puede ser negativo.")
+                    raise RLECompressionNegativeValueError("The repetition value cannot be negative.")
                 if count == 0:
-                    raise RLECompressionZeroCountError("El valor de repetición no puede ser cero.")
+                    raise RLECompressionZeroCountError("The repeat value cannot be zero.")
             decompressed.append(char * count)
             i += 1
     return ''.join(decompressed)

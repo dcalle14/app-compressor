@@ -27,11 +27,9 @@ def main():
         if opcion == "1":
             try:
                 data = input("\nWrite the text you want to compress: ")
-                
-                # Verifica si es un número entero
-                if data.isdigit():
+                if data.isdigit(): # Check if it is an integer
                     raise RLECompressionIntegerError("Cannot compress an integer.")
-                elif data == "":  # Verifica si la cadena es vacía
+                elif data == "":  # Check if the string is empty
                     raise RLECompressionNoneError("Input cannot be empty or None.")
                 
                 compressed_data = rle_encode(data)
@@ -49,11 +47,9 @@ def main():
         elif opcion == "2":
             try:
                 compressed_data = input("\nType the compressed text you want to decompress: ")
-                
-                # Verifica si es un número entero
-                if compressed_data.isdigit():
+                if compressed_data.isdigit(): # Check if it is an integer
                     raise RLECompressionIntegerError("Cannot decompress an integer.")
-                elif compressed_data == "":  # Verifica si la cadena es vacía
+                elif compressed_data == "":  # Check if the string is empty
                     raise RLECompressionNoneError("Input cannot be empty or None.")
                 
                 decompressed_data = rle_decode(compressed_data)
