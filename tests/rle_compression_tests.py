@@ -1,10 +1,19 @@
 import unittest
 import sys
 
-sys.path.append( "src" )
+# Asegúrate de que la ruta sea correcta para encontrar el módulo en la estructura de carpetas.
+sys.path.append('src/functionalities')
 
-from src.functionalities.rle_compression import rle_encode, rle_decode, RLECompressionTypeError, RLECompressionValueError
-
+from rle_compression import (
+    rle_encode,
+    rle_decode,
+    RLECompressionNoneError,
+    RLECompressionIntegerError,
+    RLECompressionListError,
+    RLECompressionDictError,
+    RLECompressionNegativeValueError,
+    RLECompressionZeroCountError
+)
 
 class TestRLECompression(unittest.TestCase):
 
@@ -55,37 +64,38 @@ class TestRLECompression(unittest.TestCase):
 
     # Error cases for compressing.
     def test_rle_encode_error_1(self):
-        with self.assertRaises(RLECompressionTypeError):
-            rle_encode(None) # Try to compress a None
+        with self.assertRaises(RLECompressionNoneError):
+            rle_encode(None)  # Try to compress a None
 
     def test_rle_encode_error_2(self):
-        with self.assertRaises(RLECompressionTypeError):
-            rle_encode(12345) # Try to compress an integer
+        with self.assertRaises(RLECompressionIntegerError):
+            rle_encode(12345)  # Try to compress an integer
 
     def test_rle_encode_error_3(self):
-        with self.assertRaises(RLECompressionTypeError):
-            rle_encode(["a", "b", "c"]) # Try to compress a list
+        with self.assertRaises(RLECompressionListError):
+            rle_encode(["a", "b", "c"])  # Try to compress a list
 
     def test_rle_encode_error_4(self):
-        with self.assertRaises(RLECompressionTypeError):
-            rle_encode({"a": 1}) # Try to compress a dictionary
+        with self.assertRaises(RLECompressionDictError):
+            rle_encode({"a": 1})  # Try to compress a dictionary
 
     # Error cases for decompressing.
     def test_rle_decode_error_1(self):
-        with self.assertRaises(RLECompressionValueError):
-            rle_decode("a3b-2") # Try to decompress a malformed string (negative number)
+        with self.assertRaises(RLECompressionNegativeValueError):
+            rle_decode("a3b-2")  # Try to decompress a malformed string (negative number)
+
     def test_rle_decode_error_2(self):
-        with self.assertRaises(RLECompressionValueError):
-            rle_decode("a10b0") # Try to decompress with zero count format (should not be allowed)
+        with self.assertRaises(RLECompressionZeroCountError):
+            rle_decode("a10b0")  # Try to decompress with zero count format (should not be allowed)
 
     def test_rle_decode_error_3(self):
-        with self.assertRaises(RLECompressionTypeError):
-            rle_decode(None) # Try to decompress a None 
+        with self.assertRaises(RLECompressionNoneError):
+            rle_decode(None)  # Try to decompress a None 
 
     def test_rle_decode_error_4(self):
-        with self.assertRaises(RLECompressionTypeError):
-            rle_decode(12345) # Try to decompress an integer
+        with self.assertRaises(RLECompressionIntegerError):
+            rle_decode(12345)  # Try to decompress an integer
 
-# This code snippet allows the test to be run individually.
-if __name__ == "__main__":
-    unittest.main()
+    # This code snippet allows the test to be run individually.
+    if __name__ == "__main__":
+        unittest.main()

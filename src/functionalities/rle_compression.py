@@ -1,73 +1,106 @@
-class RLECompressionError(Exception): # Clase base para excepciones en el módulo de compresión RLE.
+class RLECompressionError(Exception):
+    """Clase base para excepciones en el módulo de compresión RLE."""
     pass
 
-class RLECompressionTypeError(RLECompressionError): # Se lanza cuando se proporciona un tipo de entrada no válido.
+class RLECompressionNoneError(RLECompressionError):
+    """Se lanza cuando la entrada es None."""
     pass
 
-class RLECompressionValueError(RLECompressionError): # Se lanza cuando se encuentra un valor incorrecto en la entrada.
+class RLECompressionIntegerError(RLECompressionError):
+    """Se lanza cuando la entrada es un número entero."""
+    pass
+
+class RLECompressionListError(RLECompressionError):
+    """Se lanza cuando la entrada es una lista."""
+    pass
+
+class RLECompressionDictError(RLECompressionError):
+    """Se lanza cuando la entrada es un diccionario."""
+    pass
+
+class RLECompressionNegativeValueError(RLECompressionError):
+    """Se lanza cuando la entrada contiene un número negativo."""
+    pass
+
+class RLECompressionZeroCountError(RLECompressionError):
+    """Se lanza cuando la entrada contiene un conteo de cero."""
     pass
 
 def rle_encode(data: str) -> str:
     """
-    This part of the code is for
+    Compresses a text string using the Run-Length Encoding (RLE) technique.
+
+    This function takes a text string and compresses sequences of repeated characters
+    into a single character followed by the number of repetitions. For example, the string
+    "aaabbc" would be compressed to "a3b2c".
+
+    Parameters:
+    data (str): The text string to compress.
+
+    Returns:
+    str: The string compressed using RLE.
     """
-
-    if not isinstance(data, str):
-        raise RLECompressionTypeError("La entrada debe ser una cadena de texto")
+    if data is None:
+        raise RLECompressionNoneError("No se puede comprimir un valor None.")
+    if isinstance(data, int):
+        raise RLECompressionIntegerError("No se puede comprimir un número entero.")
+    if isinstance(data, list):
+        raise RLECompressionListError("No se puede comprimir una lista.")
+    if isinstance(data, dict):
+        raise RLECompressionDictError("No se puede comprimir un diccionario.")
     
-    if data.isdigit():
-        raise RLECompressionTypeError("La entrada no debe ser solo numérica")
-
-    if data is None or data == "":
-        raise RLECompressionTypeError("No hay texto, ingresa nuevamente")
-
-    encoded = ""
+    # Lógica de compresión RLE
+    compressed = []
     i = 0
-    length = len(data)
-    
-    while i < length:
+    while i < len(data):
         count = 1
-        while i + 1 < length and data[i] == data[i + 1]:
-            i += 1
+        while i + 1 < len(data) and data[i] == data[i + 1]:
             count += 1
-        encoded += data[i] + (str(count) if count > 1 else "")
+            i += 1
+        compressed.append(f"{data[i]}{count}" if count > 1 else data[i])
         i += 1
-    
-    return encoded
+    return ''.join(compressed)
+
 
 def rle_decode(data: str) -> str:
     """
-    This part of the code is for
-    """
-    
-    if not isinstance(data, str):
-        raise RLECompressionTypeError("La entrada debe ser una cadena de texto")
-    
-    if data.isdigit():
-        raise RLECompressionTypeError("La entrada no debe ser solo numérica")
-    
-    if data is None or data == "":
-        raise RLECompressionTypeError("No hay texto, ingresa nuevamente")
+    Decompresses a text string that has been compressed using the Run-Length Encoding (RLE) technique.
 
-    decoded = ""
+    This function takes a compressed text string and expands it back to its original form.
+    For example, the string "a3b2c" would be decompressed to "aaabbc".
+
+    Parameters:
+    data (str): The compressed text string to be decompressed.
+
+    Returns:
+    str: The decompressed text string.
+    """
+
+    if data is None:
+            raise RLECompressionNoneError("No se puede descomprimir un valor None.")
+    
+    if isinstance(data, int):
+            raise RLECompressionIntegerError("No se puede descomprimir un número entero.")
+    
+    if "-" in data:
+         raise RLECompressionNegativeValueError("Cannot decode negative numbers.")
+        
+    decompressed = []
     i = 0
-    length = len(data)
-    
-    while i < length:
-        char = data[i]
-        i += 1
-        count_str = ""
-        while i < length and data[i].isdigit():
-            count_str += data[i]
+    while i < len(data):
+            char = data[i]
+            count = 1
+            if i + 1 < len(data) and (data[i + 1].isdigit() or (data[i + 1] == '-' and data[i + 2].isdigit())):
+                count_str = ''
+                while i + 1 < len(data) and (data[i + 1].isdigit() or (data[i + 1] == '-' and data[i + 2].isdigit())):
+                    count_str += data[i + 1]
+                    i += 1
+                count = int(count_str)
+                if count < 0:
+                    raise RLECompressionNegativeValueError("El valor de repetición no puede ser negativo.")
+                if count == 0:
+                    raise RLECompressionZeroCountError("El valor de repetición no puede ser cero.")
+            decompressed.append(char * count)
             i += 1
-        
-        if count_str and int(count_str) <= 0:
-            raise RLECompressionValueError("El recuento de repeticiones debe ser mayor a cero")
-        
-        if i < length and data[i] == '-':
-            raise RLECompressionValueError("El texto comprimido es incorrecto, no se permiten números negativos")
-        
-        count = int(count_str) if count_str else 1
-        decoded += char * count
+    return ''.join(decompressed)
     
-    return decoded
