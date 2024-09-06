@@ -6,8 +6,8 @@ Data compression is the reduction of the volume of data that can be processed to
 
 ## Prerequisites
 
-- To run the program it is important to have Visual Studio Code and the Python programming language extension installed.
-- To run the program from the console you must run the following command: `src\console\rle_compression_console.py`
+- Python 3.x installed on your machine.
+- Git installed to clone the repository.
 
 ## Project Architecture
 
@@ -42,11 +42,14 @@ text-compressor/
 └── README.md     # Project documentation
 ```
 
-## Program use
+## Installation / program use
 
-In this section I will explain the way in which you can run both the unit tests and the program console for greater experience.
-
-1. To run the unit tests, from the src folder, use the command: `tests\rle_compression_tests.py` In order to run from the root folder, you must indicate the search path where the modules are located, including the following lines at the beginning of the test module.
-2. To run the program from the console you must run the following command: `src\console\rle_compression_console.py`
+To clone this repository from your terminal, which can be PowerShell or CommandPrompt, follow the steps below carefully.
+1. Navigate to the folder where you want to clone the project, using the cd command.
+2. Copy the following command to clone the repository from your machine: `git clone https://github.com/santiagocordobaf/text-compressor.git`
+3. Navigate to the project folder using: `cd text-compressor`
+4. To run the unit tests performed, use the following command: `python -m unittest discover -s tests -p "*.py"`
+This will discover and run all the test cases within the tests folder.
+5. To run the console of the program in which you can compress and decompress texts, use the following command: `python src/console/rle_compression_console.py`
 
 This is a second part of the release for this project after doing some refactoring and applying clean code principles.
