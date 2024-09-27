@@ -3,7 +3,7 @@ import os
 
 # Add the project root path to sys.path
 # Agrega la ruta raíz del proyecto al sys.path
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
+sys.path.append("src")
 
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
