@@ -96,6 +96,6 @@ class TestRLECompression(unittest.TestCase):
         with self.assertRaises(RLECompressionIntegerError):
             rle_decode(12345)  # Try to decompress an integer
 
-    # This code snippet allows the test to be run individually.
-    if __name__ == "__main__":
-        unittest.main()
+# This code snippet allows the test to be run individually.
+if __name__ == "__main__":
+    unittest.main()
