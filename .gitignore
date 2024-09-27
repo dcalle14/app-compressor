@@ -1,4 +1,4 @@
 # This file contains the paths to be excluded from version control with Git. Temporary folder for compiled Python files
 
 __pycache__
-ignorar.py
+env
