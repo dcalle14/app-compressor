@@ -27,10 +27,13 @@ text-compressor/
 │   ├── console
 │   │    └── rle_compression_console.py # Logic for the command line interface
 │   │    
-│   └── functionalities
-│       ├── _init_.py
-│       └── rle_compression.py          # Logic of the functionalities for text compression and decompression 
-│
+│   ├── functionalities
+│   |   ├── _init_.py
+│   |   └── rle_compression.py          # Logic of the functionalities for text compression and decompression 
+│   │    
+│   └── gui
+|       ├── _init_.py
+│       └── rle_compression_gui.py      # Logic of text compression and decompression functionalities implemented in kivy 
 │
 ├── tests
 │   ├── _init_.py
@@ -58,7 +61,8 @@ Open your terminal (PowerShell, Command Prompt, or any terminal you prefer).
 - This will discover and run all the test cases within the tests folder.
 
 ### Running the Program
-5. To run the console of the program in which you can compress and decompress texts, use the following command:
+5. To run the console or kivy interface of the program in which you can compress and decompress texts, use the following commands:
     > $> python src/console/rle_compression_console.py
+    > $> python src/gui/rle_compression_console_gui.py
 
 This is a second part of the release for this project after doing some refactoring and applying clean code principles.
