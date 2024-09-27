@@ -63,6 +63,7 @@ Open your terminal (PowerShell, Command Prompt, or any terminal you prefer).
 ### Running the Program
 5. To run the console or kivy interface of the program in which you can compress and decompress texts, use the following commands:
     > $> python src/console/rle_compression_console.py
+    or
     > $> python src/gui/rle_compression_console_gui.py
 
 This is a second part of the release for this project after doing some refactoring and applying clean code principles.
