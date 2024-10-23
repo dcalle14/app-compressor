@@ -1,3 +1,6 @@
+from controller.controlador_tabla import ControladorPalabrasComprimidas as cursor
+from model.palabra_comprimida import PalabraComprimida
+
 class RLECompressionError(Exception):
     """Base class for exceptions in the RLE compression module"""
     pass
@@ -60,7 +63,9 @@ def rle_encode(data: str) -> str:
             i += 1
         compressed.append(f"{data[i]}{count}" if count > 1 else data[i])
         i += 1
-    return ''.join(compressed)
+    compressed_str : str = ''.join(compressed)
+
+    return compressed_str
 
 
 def rle_decode(data: str) -> str:
