@@ -2,10 +2,11 @@ import unittest
 import psycopg2
 from psycopg2.errors import *
 import sys
-import SecretConfig
+sys.path.append('.')
+import secretconfige
 
 # Agregamos la ruta raíz del proyecto
-sys.path.append('.')
+
 
 # Importamos los controladores y modelos correctamente
 from src.controller.controlador_tabla import ControladorPalabrasComprimidas
@@ -23,11 +24,11 @@ class ControladorPalabrasComprimidasTestCases(unittest.TestCase):
     def ObtenerCursor():
         """Crea la conexión a la base de datos y retorna un cursor para hacer consultas"""
         connection = psycopg2.connect(
-            database=SecretConfig.PGDATABASE, 
-            user=SecretConfig.PGUSER, 
-            password=SecretConfig.PGPASSWORD, 
-            host=SecretConfig.PGHOST, 
-            port=SecretConfig.PGPORT
+            database=secretconfige.PGDATABASE, 
+            user=secretconfige.PGUSER, 
+            password=secretconfige.PGPASSWORD, 
+            host=secretconfige.PGHOST, 
+            port=secretconfige.PGPORT
         )
         return connection.cursor()
 
