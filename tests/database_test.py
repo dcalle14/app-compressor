@@ -3,7 +3,7 @@ import psycopg2
 from psycopg2.errors import *
 import sys
 sys.path.append('.')
-import secretconfig
+import scretconfigxeample
 
 # Agregamos la ruta raíz del proyecto
 
@@ -24,11 +24,11 @@ class ControladorPalabrasComprimidasTestCases(unittest.TestCase):
     def ObtenerCursor():
         """Crea la conexión a la base de datos y retorna un cursor para hacer consultas"""
         connection = psycopg2.connect(
-            database=secretconfig.PGDATABASE, 
-            user=secretconfig.PGUSER, 
-            password=secretconfig.PGPASSWORD, 
-            host=secretconfig.PGHOST, 
-            port=secretconfig.PGPORT
+            database=scretconfigxeample.PGDATABASE, 
+            user=scretconfigxeample.PGUSER, 
+            password=scretconfigxeample.PGPASSWORD, 
+            host=scretconfigxeample.PGHOST, 
+            port=scretconfigxeample.PGPORT
         )
         return connection.cursor()
 

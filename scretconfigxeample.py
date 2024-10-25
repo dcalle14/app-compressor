@@ -6,8 +6,10 @@ para poder ejecutar la aplicación con su propia base de datos.
 """
 
 
-PGDATABASE = "ESCRIBA EL NOMBRE DE LA BASE DE DATOS"
-PGUSER = "ESCRIBA EL USUARIO DE LA DB"
-PGPASSWORD = "ESCRIBA LA CONSTRASEÑA"
-PGHOST = "ESCRIBA LA DIRECCION DNS O DIRECCION IP DEL SERVIDOR"
+# Do not expose your Neon credentials to the browser
+
+PGHOST='ep-aged-bird-a5e967qk.us-east-2.aws.neon.tech'
+PGDATABASE='neondb'
+PGUSER='neondb_owner'
+PGPASSWORD='iNlU6wZpF3qQ'
 PGPORT = 5432 # POR DEFECTO ES 5432, PERO PUEDE CAMBIAR EN SU DB
