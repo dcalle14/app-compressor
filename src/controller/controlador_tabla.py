@@ -1,9 +1,9 @@
 import sys
-sys.path.append("src")
+sys.path.append(".")
 
 import psycopg2
-from model.palabra_comprimida import PalabraComprimida
-import secretconfige
+from src.model.palabra_comprimida import PalabraComprimida
+import secretconfig
 
 class ControladorPalabrasComprimidas:
 
@@ -97,11 +97,11 @@ class ControladorPalabrasComprimidas:
     def ObtenerCursor():
         """ Crea la conexión a la base de datos y retorna un cursor para hacer consultas """
         connection = psycopg2.connect(
-            database=secretconfige.PGDATABASE, 
-            user=secretconfige.PGUSER, 
-            password=secretconfige.PGPASSWORD, 
-            host=secretconfige.PGHOST, 
-            port=secretconfige.PGPORT
+            database=secretconfig.PGDATABASE, 
+            user=secretconfig.PGUSER, 
+            password=secretconfig.PGPASSWORD, 
+            host=secretconfig.PGHOST, 
+            port=secretconfig.PGPORT
         )
         cursor = connection.cursor()
         return cursor
