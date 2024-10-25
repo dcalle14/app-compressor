@@ -3,7 +3,7 @@ sys.path.append(".")
 
 import psycopg2
 from src.model.palabra_comprimida import PalabraComprimida
-import scretconfigxeample
+import scretconfigexample
 
 class ControladorPalabrasComprimidas:
 
@@ -97,11 +97,11 @@ class ControladorPalabrasComprimidas:
     def ObtenerCursor():
         """ Crea la conexión a la base de datos y retorna un cursor para hacer consultas """
         connection = psycopg2.connect(
-            database=scretconfigxeample.PGDATABASE, 
-            user=scretconfigxeample.PGUSER, 
-            password=scretconfigxeample.PGPASSWORD, 
-            host=scretconfigxeample.PGHOST, 
-            port=scretconfigxeample.PGPORT
+            database=scretconfigexample.PGDATABASE, 
+            user=scretconfigexample.PGUSER, 
+            password=scretconfigexample.PGPASSWORD, 
+            host=scretconfigexample.PGHOST, 
+            port=scretconfigexample.PGPORT
         )
         cursor = connection.cursor()
         return cursor
