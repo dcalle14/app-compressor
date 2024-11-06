@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplicación Web</title>
+</head>
+<body>
+    <h1>Aplicación de Compresión y Tablas</h1>
+
+    <form action="{{ url_for('compress') }}" method="post">
+        <label for="data">Ingrese texto para comprimir:</label>
+        <input type="text" id="data" name="data" required>
+        <button type="submit">Comprimir</button>
+    </form>
+
+    {% if result %}
+        <h2>Resultado de Compresión:</h2>
+        <p>{{ result }}</p>
+    {% endif %}
+
+    <h2>Datos de Tabla</h2>
+    {% if table_data %}
+        <table>
+            <tr>
+                <th>Columna 1</th>
+                <th>Columna 2</th>
+            </tr>
+            {% for row in table_data %}
+                <tr>
+                    <td>{{ row[0] }}</td>
+                    <td>{{ row[1] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+</body>
+</html>
