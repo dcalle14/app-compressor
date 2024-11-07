@@ -1,38 +1,35 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aplicación Web</title>
+    <title>Text Compressor and Decompressor</title>
 </head>
 <body>
-    <h1>Aplicación de Compresión y Tablas</h1>
-
-    <form action="{{ url_for('compress') }}" method="post">
-        <label for="data">Ingrese texto para comprimir:</label>
-        <input type="text" id="data" name="data" required>
-        <button type="submit">Comprimir</button>
+    <h1>Welcome to the Text Compressor and Decompressor!</h1>
+    
+    <form action="/compress" method="POST">
+        <h2>Compress Text</h2>
+        <label for="text">Text to Compress:</label>
+        <input type="text" name="text" id="text" required>
+        <button type="submit">Compress</button>
     </form>
 
-    {% if result %}
-        <h2>Resultado de Compresión:</h2>
-        <p>{{ result }}</p>
-    {% endif %}
+    <form action="/decompress" method="POST">
+        <h2>Decompress Text</h2>
+        <label for="compressed_text">Compressed Text:</label>
+        <input type="text" name="compressed_text" id="compressed_text" required>
+        <button type="submit">Decompress</button>
+    </form>
 
-    <h2>Datos de Tabla</h2>
-    {% if table_data %}
-        <table>
-            <tr>
-                <th>Columna 1</th>
-                <th>Columna 2</th>
-            </tr>
-            {% for row in table_data %}
-                <tr>
-                    <td>{{ row[0] }}</td>
-                    <td>{{ row[1] }}</td>
-                </tr>
-            {% endfor %}
-        </table>
-    {% endif %}
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
 </body>
 </html>
