@@ -11,14 +11,14 @@
     <form action="/compress" method="POST">
         <h2>Compress Text</h2>
         <label for="text">Text to Compress:</label>
-        <input type="text" name="data" id="text" required>  <!-- 'data' matches Flask route -->
+        <input type="text" name="text" id="text" required> <!-- 'text' para coincidir con Flask -->
         <button type="submit">Compress</button>
     </form>
 
     <form action="/decompress" method="POST">
         <h2>Decompress Text</h2>
         <label for="compressed_text">Compressed Text:</label>
-        <input type="text" name="compressed_name" id="compressed_text" required>  <!-- 'compressed_name' matches Flask route -->
+        <input type="text" name="compressed_text" id="compressed_text" required> <!-- 'compressed_text' para coincidir con Flask -->
         <button type="submit">Decompress</button>
     </form>
 
