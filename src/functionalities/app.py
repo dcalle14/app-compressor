@@ -1,5 +1,7 @@
 import sys
 import os
+import secrets
+from werkzeug.utils import escape
 from flask import Flask, render_template, request, redirect, url_for, flash
 
 # Importa las clases y funciones necesarias
@@ -15,6 +17,8 @@ from functionalities.rle_compression import (
 
 app = Flask(__name__)
 app.secret_key = "your_secret_key_here"  # Cambia esto por una clave secreta
+app.secret_key = secrets.token_hex(16)
+text = escape(request.form.get('text', ''))
 
 @app.route('/')
 def index():
@@ -22,21 +26,26 @@ def index():
 
 @app.route('/compress', methods=['POST'])
 def compress():
-    text = request.form.get('text')  # Obtener el texto del formulario
-    if text:  # Verifica que el texto no esté vacío
-        try:
-            compressed_data = rle_encode(text)
-            palabra_comprimida = PalabraComprimida(text, compressed_data)
-            id = cursor.InsertarPalabra(palabra_comprimida)
-            flash(f"Texto comprimido: {compressed_data} con ID {id}", "success")
-        except RLECompressionNoneError:
-            flash("Error: La entrada no puede estar vacía.", "error")
-        except RLECompressionIntegerError:
-            flash("Error: La entrada no puede ser un número entero.", "error")
-    else:
+    text = request.form.get('text', '').strip()  # Usar strip() para eliminar espacios
+    
+    if not text:
         flash("Error: Por favor ingresa un texto para comprimir.", "error")
-    return redirect(url_for('index'))
-
+        return redirect(url_for('index'))
+        
+    try:
+        compressed_data = rle_encode(text)
+        palabra_comprimida = PalabraComprimida(text, compressed_data)
+        id = cursor.InsertarPalabra(palabra_comprimida)
+        flash(f"Texto comprimido exitosamente", "success")
+        return render_template("index.html", 
+                             compressed_result=compressed_data, 
+                             original_text=text,
+                             id=id)
+    except Exception as e:
+        flash(f"Error durante la compresión: {str(e)}", "error")
+        return redirect(url_for('index'))
+    
+    
 @app.route('/decompress', methods=['POST'])
 def decompress():
     compressed_text = request.form.get('compressed_text')  # Obtener el texto comprimido
