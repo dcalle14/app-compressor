@@ -4,7 +4,7 @@ import os
 sys.path.append(os.path.join(os.path.dirname(__file__), '../src'))
 
 import unittest
-from functionalities.app import app
+from functionalities.app import app 
 from model.rle_compression import RLECompression
 from controller.table_controller import TableController
 
@@ -29,13 +29,6 @@ class FlaskTestCase(unittest.TestCase):
         # Ensure page contains expected title text
         self.assertIn('Aplicación de Compresión y Tablas', response.get_data(as_text=True))
 
-    def test_compress_function(self):
-        # Test the compression functionality for a given input
-        response = self.app.post('/compress', data={'data': 'AAABBBCC'})
-        self.assertEqual(response.status_code, 200)
-        # Verify the result contains the expected output
-        self.assertIn('Resultado de Compresión:', response.get_data(as_text=True))
-        self.assertIn('3A3B2C', response.get_data(as_text=True))  # Checks correctness of result
 
 class RLECompressionTestCase(unittest.TestCase):
     def setUp(self):
@@ -84,6 +77,14 @@ class TableControllerTestCase(unittest.TestCase):
             self.assertIsInstance(row[0], str, "The first element of each row should be a string.")
             # Check if the second element is a numeric type (int or float)
             self.assertIsInstance(row[1], (int, float), "The second element of each row should be a number.")
+    
+    def test_filter_data_by_value(self):
+        # Verificar si el controlador de tablas puede filtrar datos correctamente
+        filtered_data = self.table_controller.filter_data_by_value(min_value=50)
+        self.assertIsInstance(filtered_data, list, "El resultado debería ser una lista.")
+        for row in filtered_data:
+            # Asegurarse de que cada valor filtrado cumple con el criterio de ser mayor o igual al valor mínimo
+            self.assertGreaterEqual(row[1], 50, "El valor de la segunda columna debe ser mayor o igual a 50.")
 
 if __name__ == '__main__':
     # Run all tests

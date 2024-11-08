@@ -1,24 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Text Compressor and Decompressor</title>
 </head>
 <body>
-    <h1>Welcome to the Text Compressor and Decompressor!</h1>
+    <h1>Aplicación de Compresión y Tablas</h1>
     
     <form action="/compress" method="POST">
         <h2>Compress Text</h2>
         <label for="text">Text to Compress:</label>
-        <input type="text" name="text" id="text" required>
+        <input type="text" name="data" id="text" required>  <!-- 'data' matches Flask route -->
         <button type="submit">Compress</button>
     </form>
 
     <form action="/decompress" method="POST">
         <h2>Decompress Text</h2>
         <label for="compressed_text">Compressed Text:</label>
-        <input type="text" name="compressed_text" id="compressed_text" required>
+        <input type="text" name="compressed_name" id="compressed_text" required>  <!-- 'compressed_name' matches Flask route -->
         <button type="submit">Decompress</button>
     </form>
 
