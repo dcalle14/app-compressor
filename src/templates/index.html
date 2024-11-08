@@ -3,30 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text Compressor and Decompressor</title>
+    <title>Aplicación de Compresión y Tablas</title>
 </head>
 <body>
     <h1>Aplicación de Compresión y Tablas</h1>
     
     <form action="/compress" method="POST">
-        <h2>Compress Text</h2>
-        <label for="text">Text to Compress:</label>
-        <input type="text" name="text" id="text" required> <!-- 'text' para coincidir con Flask -->
-        <button type="submit">Compress</button>
+        <h2>Comprimir Texto</h2>
+        <label for="text">Texto a Comprimir:</label>
+        <input type="text" name="text" id="text" required>
+        <button type="submit">Comprimir</button>
     </form>
 
     <form action="/decompress" method="POST">
-        <h2>Decompress Text</h2>
-        <label for="compressed_text">Compressed Text:</label>
-        <input type="text" name="compressed_text" id="compressed_text" required> <!-- 'compressed_text' para coincidir con Flask -->
-        <button type="submit">Decompress</button>
+        <h2>Descomprimir Texto</h2>
+        <label for="compressed_text">Texto Comprimido:</label>
+        <input type="text" name="compressed_text" id="compressed_text" required>
+        <button type="submit">Descomprimir</button>
     </form>
 
-    {% with messages = get_flashed_messages() %}
+    <!-- Mostrar mensajes flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
         <ul>
-          {% for message in messages %}
-            <li>{{ message }}</li>
+          {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
           {% endfor %}
         </ul>
       {% endif %}

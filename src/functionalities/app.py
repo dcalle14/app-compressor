@@ -1,8 +1,9 @@
 import sys
 import os
-sys.path.append(os.path.join(os.path.dirname(__file__), '../'))
-
 from flask import Flask, render_template, request, redirect, url_for, flash
+
+# Importa las clases y funciones necesarias
+sys.path.append(os.path.join(os.path.dirname(__file__), '../'))
 from controller.controlador_tabla import ControladorPalabrasComprimidas as cursor
 from model.palabra_comprimida import PalabraComprimida
 from functionalities.rle_compression import (
@@ -21,29 +22,33 @@ def index():
 
 @app.route('/compress', methods=['POST'])
 def compress():
-    text = request.form['text']
-    try:
-        compressed_data = rle_encode(text)
-        palabra_comprimida = PalabraComprimida(text, compressed_data)
-        id = cursor.InsertarPalabra(palabra_comprimida)
-        flash(f"Text compressed: {compressed_data} with ID {id}")
-    except RLECompressionNoneError:
-        flash("Error: The input cannot be None or an empty string.")
-    except RLECompressionIntegerError:
-        flash("Error: The input cannot be an integer.")
+    text = request.form.get('text')  # Obtener el texto del formulario
+    if text:  # Verifica que el texto no esté vacío
+        try:
+            compressed_data = rle_encode(text)
+            palabra_comprimida = PalabraComprimida(text, compressed_data)
+            id = cursor.InsertarPalabra(palabra_comprimida)
+            flash(f"Texto comprimido: {compressed_data} con ID {id}", "success")
+        except RLECompressionNoneError:
+            flash("Error: La entrada no puede estar vacía.", "error")
+        except RLECompressionIntegerError:
+            flash("Error: La entrada no puede ser un número entero.", "error")
+    else:
+        flash("Error: Por favor ingresa un texto para comprimir.", "error")
     return redirect(url_for('index'))
 
 @app.route('/decompress', methods=['POST'])
 def decompress():
-    compressed_text = request.form['compressed_text']
-    try:
-        decompressed_data = rle_decode(compressed_text)
-        flash(f"Decompressed text: {decompressed_data}")
-    except Exception as e:
-        flash(str(e))
+    compressed_text = request.form.get('compressed_text')  # Obtener el texto comprimido
+    if compressed_text:  # Verifica que el texto comprimido no esté vacío
+        try:
+            decompressed_data = rle_decode(compressed_text)
+            flash(f"Texto descomprimido: {decompressed_data}", "success")
+        except Exception as e:
+            flash(f"Error: {str(e)}", "error")
+    else:
+        flash("Error: Por favor ingresa texto comprimido para descomprimir.", "error")
     return redirect(url_for('index'))
-
-# Añade más rutas para eliminar, actualizar y buscar según sea necesario
 
 if __name__ == "__main__":
     app.run(debug=True)
