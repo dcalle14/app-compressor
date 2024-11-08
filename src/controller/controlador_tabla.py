@@ -7,17 +7,18 @@ import scretconfigexample
 
 class ControladorPalabrasComprimidas:
     @staticmethod
-def ObtenerCursor():
-    """ Crea la conexión a la base de datos y retorna un cursor para hacer consultas """
-    connection = psycopg2.connect(
+    
+    def ObtenerCursor():
+        """ Crea la conexión a la base de datos y retorna un cursor para hacer consultas """
+        connection = psycopg2.connect(
         database=scretconfigexample.PGDATABASE, 
         user=scretconfigexample.PGUSER, 
         password=scretconfigexample.PGPASSWORD, 
         host=scretconfigexample.PGHOST, 
         port=scretconfigexample.PGPORT
-    )
-    cursor = connection.cursor()
-    return cursor
+        )
+        cursor = connection.cursor()
+        return cursor
 
 
     @staticmethod

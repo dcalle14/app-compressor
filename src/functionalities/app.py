@@ -27,6 +27,8 @@ def compress():
         flash("Error: The input cannot be None or an empty string.")
     except RLECompressionIntegerError:
         flash("Error: The input cannot be an integer.")
+    except Exception as e:
+        flash(f"An unexpected error occurred: {str(e)}")
     return redirect(url_for('index'))
 
 @app.route('/decompress', methods=['POST'])
@@ -35,12 +37,17 @@ def decompress():
     try:
         decompressed_data = rle_decode(compressed_text)
         flash(f"Decompressed text: {decompressed_data}")
+    except RLECompressionNoneError:
+        flash("Error: The input cannot be None or an empty string.")
+    except RLECompressionIntegerError:
+        flash("Error: The input cannot be an integer.")
     except Exception as e:
-        flash(str(e))
+        flash(f"An unexpected error occurred: {str(e)}")
     return redirect(url_for('index'))
 
 # Añade más rutas para eliminar, actualizar y buscar según sea necesario
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 

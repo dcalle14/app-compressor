@@ -8,20 +8,28 @@ from functionalities.app import app
 from model.rle_compression import RLECompression
 from controller.table_controller import TableController
 
+"""
+we use self.assertEqual: Compares expected values ​​with actual results to ensure that functions return correct results
+self.assertIn: Verifies that a specific value is contained within a result.
+self.assertIsInstance: Confirms that an object is of a specific data type.
+self.assertTrue: Ensures that a condition is true.
+
+"""
+
 class FlaskTestCase(unittest.TestCase):
     def setUp(self):
         # Configure Flask test client
         self.app = app.test_client()
         self.app.testing = True
 
-    def test_index(self):
+    def test_index_page_load(self):
         # Verify that the main page loads correctly
         response = self.app.get('/')
         self.assertEqual(response.status_code, 200)
         # Ensure page contains expected title text
         self.assertIn('Aplicación de Compresión y Tablas', response.get_data(as_text=True))
 
-    def test_compress(self):
+    def test_compress_function(self):
         # Test the compression functionality for a given input
         response = self.app.post('/compress', data={'data': 'AAABBBCC'})
         self.assertEqual(response.status_code, 200)
@@ -34,22 +42,22 @@ class RLECompressionTestCase(unittest.TestCase):
         # Initialize RLECompression instance for tests
         self.rle = RLECompression()
 
-    def test_rle_compression_empty(self):
+    def test_compress_empty_string(self):
         # Test RLE compression with an empty string
         result = self.rle.compress('')
         self.assertEqual(result, '', "Compressing an empty string should return an empty string.")
 
-    def test_rle_compression_basic(self):
+    def test_compress_repeating_pattern(self):
         # Test RLE compression with a standard repeating pattern
         result = self.rle.compress('AAABBBCC')
         self.assertEqual(result, '3A3B2C', "RLE compression of 'AAABBBCC' should be '3A3B2C'.")
 
-    def test_rle_compression_single_character(self):
+    def test_compress_single_character(self):
         # Test RLE compression with a single character input
         result = self.rle.compress('A')
         self.assertEqual(result, '1A', "RLE compression of 'A' should be '1A'.")
 
-    def test_rle_compression_no_repeats(self):
+    def test_compress_unique_characters(self):
         # Test RLE compression with unique characters
         result = self.rle.compress('ABC')
         self.assertEqual(result, '1A1B1C', "RLE compression of 'ABC' should be '1A1B1C'.")
@@ -59,16 +67,14 @@ class TableControllerTestCase(unittest.TestCase):
         # Initialize TableController instance for tests
         self.table_controller = TableController()
 
-    def test_table_get_data(self):
+    def test_get_data_format(self):
         # Verify that the table controller returns data in list format
         table_data = self.table_controller.get_data()
         self.assertIsInstance(table_data, list, "The result should be a list.")
-        # Ensure list is not empty
         self.assertTrue(len(table_data) > 0, "The list of data should not be empty.")
-        # Confirm each entry is a tuple
         self.assertIsInstance(table_data[0], tuple, "Each entry in the data should be a tuple.")
 
-    def test_table_data_content(self):
+    def test_data_content_structure(self):
         # Ensure the data format in each row is as expected
         table_data = self.table_controller.get_data()
         for row in table_data:
