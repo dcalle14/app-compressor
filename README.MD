@@ -109,3 +109,59 @@ To execute the test cases you must write the following commands in the python te
 - This will execute the test cases for the database:
 <pre>python tests/rle_compression_tests.py</pre>
 
+APP-COMPRESSOR/
+│
+├── app.py                        
+│   ├── controller/
+│   │   └── table_controller.py   
+│   ├── functionalities/
+│   │   └── app.py   
+│   └── model/
+│       └── rle_compression.py 
+├── tests/                        
+│   ├── test_app.py               
+├── templates/
+│   └── index.html                
+├── static/
+│   └── style.css                 
+├── requirements.txt              
+└── README.md                     
+ # Compresor de Texto con Flask y RLE
+
+Este proyecto es una aplicación web para comprimir texto usando el algoritmo de compresión Run-Length Encoding (RLE). La aplicación permite ingresar texto, comprimirlo, descomprimirlo, y visualizar el texto comprimido junto con el original. También se incluyen pruebas unitarias para verificar la funcionalidad del código.
+
+## Requisitos
+
+- Python 3.x
+- pip (Python package installer)
+
+## Instalación
+
+1. **Clona este repositorio**:
+   ```bash
+   git clone https://github.com/dcalle14/app-compressor
+   cd app-compressor
+
+## Ejecución de la Aplicación
+1. Inicia la aplicación:
+
+   flask run
+
+2. Accede a la aplicación: Abre tu navegador y ve a http://127.0.0.1:5000 para ver la aplicación en funcionamiento.
+
+## Pruebas Unitarias
+Las pruebas están organizadas en la carpeta tests/ e incluyen pruebas para la aplicación Flask y el módulo de compresión RLE.
+
+Estructura de las pruebas:
+
+tests/test_app.py: Contiene pruebas para los endpoints de la aplicación Flask.
+tests/test_rle.py: Contiene pruebas para el módulo de compresión RLE (rle_compression.py).
+Ejecutar las pruebas: Puedes ejecutar todas las pruebas con el siguiente comando:
+
+python -m unittest discover -s tests -p "*.py"
+
+
+Ejecutar con pytest (Opcional)
+Si prefieres usar pytest, simplemente ejecuta el siguiente comando en el directorio raíz del proyecto:
+
+pytest
