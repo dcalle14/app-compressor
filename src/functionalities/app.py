@@ -16,9 +16,7 @@ from functionalities.rle_compression import (
 )
 
 app = Flask(__name__)
-app.secret_key = "your_secret_key_here"  # Cambia esto por una clave secreta
-app.secret_key = secrets.token_hex(16)
-text = escape(request.form.get('text', ''))
+app.secret_key = secrets.token_hex(16)  # Cambia esto por una clave secreta
 
 @app.route('/')
 def index():
@@ -30,13 +28,13 @@ def compress():
     
     if not text:
         flash("Error: Por favor ingresa un texto para comprimir.", "error")
-        return redirect(url_for('index'))
-        
+        return redirect(url_for('index'))  # Redirige si no hay texto
+    
     try:
         compressed_data = rle_encode(text)
         palabra_comprimida = PalabraComprimida(text, compressed_data)
         id = cursor.InsertarPalabra(palabra_comprimida)
-        flash(f"Texto comprimido exitosamente", "success")
+        flash("Texto comprimido exitosamente", "success")
         return render_template("index.html", 
                              compressed_result=compressed_data, 
                              original_text=text,
@@ -61,4 +59,3 @@ def decompress():
 
 if __name__ == "__main__":
     app.run(debug=True)
-
